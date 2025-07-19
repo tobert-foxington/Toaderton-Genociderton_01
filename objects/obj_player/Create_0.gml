@@ -9,3 +9,5 @@ sprite[LEFT] = spr_player_left;
 sprite[DOWN] = spr_player_down;
 
 face = DOWN;
+
+can_move = true;

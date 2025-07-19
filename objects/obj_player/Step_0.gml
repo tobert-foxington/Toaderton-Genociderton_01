@@ -56,7 +56,8 @@ x += xspd;
 y += yspd;
 
 
-
+if(can_move){
+}
 
 
 //anomateeiodfsdf
