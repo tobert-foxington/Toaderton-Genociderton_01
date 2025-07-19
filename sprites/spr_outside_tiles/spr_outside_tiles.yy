@@ -2,7 +2,7 @@
   "$GMSprite":"",
   "%Name":"spr_outside_tiles",
   "bboxMode":0,
-  "bbox_bottom":255,
+  "bbox_bottom":239,
   "bbox_left":0,
   "bbox_right":63,
   "bbox_top":0,
