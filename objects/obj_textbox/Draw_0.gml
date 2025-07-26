@@ -14,7 +14,7 @@ textbox_y = view_y + view_h - textbox_height - margin;
 //setup
 if(setup == false) {
 	setup = true;
-	
+	move_spd = 0;
 	obj_player.can_move = false;
 	
 	draw_set_font(Fnt_Text);
@@ -28,8 +28,18 @@ if(setup == false) {
 		// find how many characters are on each page and store that number in text length array
 		text_length[p] = string_length(text[p]);
 		
-		//getting the x pos for the textbox when there i no character portrait (center_textbox)
-		text_x_offset[p] = 21;
+		//yes character portrait (offset)
+		text_x_offset[p] = 78;
+		portrait_x_offset[p] = 38;
+		line_width = textbox_width - border*2 - text_x_offset[p];
+		
+		// no character portrait (center textbox)
+		if speaker_sprite[0] == noone{
+			
+			text_x_offset[p] = 21;
+		line_width = textbox_width - border * 2;
+		}
+		
 	}
 }
 
@@ -51,6 +61,7 @@ if confirm_key {
 		//destroy textbox
 		{
 			obj_player.can_move = true;
+			move_spd = 0;
 			instance_destroy();
 		}
 	} 
@@ -66,9 +77,25 @@ txtb_sprite_h = sprite_get_height(txtb_sprite);
 
 draw_sprite_stretched(txtb_sprite, txtb_image, textbox_x, textbox_y, textbox_width, textbox_height);
 
+//draw speaker sprite
+if speaker_sprite[0] != noone {
+	sprite_index = speaker_sprite[page];
+	if draw_char == text_length[page] {image_index = 0};
+	var _speaker_x = textbox_x + portrait_x_offset[page];
+	
+var portrait_scale = 48 / sprite_width;
+draw_sprite_ext(sprite_index, image_index, _speaker_x, textbox_y + (textbox_height / 2), portrait_scale, portrait_scale, 0, c_white, 1);
 
+}
 
 //draw the text
 var _drawtext = string_copy(text[page], 1, draw_char);
 var text_padding = 6;
-draw_text_ext(textbox_x + text_padding, textbox_y + text_padding, _drawtext, line_sep, line_width);
+draw_text_ext(
+    textbox_x + text_x_offset[page], 
+    textbox_y + text_padding, 
+    _drawtext, 
+    line_sep, 
+    line_width
+);
+

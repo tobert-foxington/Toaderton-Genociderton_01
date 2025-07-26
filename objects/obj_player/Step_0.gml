@@ -11,6 +11,8 @@ yspd = (down_key - up_key) * move_spd;
 if run_key == true {move_spd = 2};
 if run_key == false {move_spd = 1};
 
+if obj_player.can_move == true {move_spd = 1};
+if obj_player.can_move == false {move_spd = 0};
 
 // pause
 if instance_exists(obj_pauser)
